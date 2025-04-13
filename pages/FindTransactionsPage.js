@@ -1,11 +1,5 @@
 
-/**
- * Select an account
- * Find By data input box
- * Find Transactions Button
- * Validate
- * 
- */
+
 import { expect } from "@playwright/test";
 
 export class FindTransactionsPage {
