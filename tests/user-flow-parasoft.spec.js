@@ -226,6 +226,7 @@ test('Complete full user flow from register to transaction validation', async ({
       await expect(errorText).toContain('Error!');  // Validate the error message
       throw new Error('Transaction search failed due to error');
     }
+    else
     {
       const resultsTitle = await page.locator('div#resultContainer > h1.title').textContent();
       await expect(resultsTitle).toContain('Transaction Results');  // Validate that transaction results are displayed
