@@ -2,7 +2,11 @@
   "name": "staple-playwright",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test-headed": "npx playwright test --headed",
+    "test-headless": "npx playwright test",
+    "test-ui": "npx playwright test --ui"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
