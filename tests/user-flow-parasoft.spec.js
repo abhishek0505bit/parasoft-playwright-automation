@@ -36,7 +36,7 @@ test('Complete full user flow from register to transaction validation', async ({
 
     const registerpage = new RegistrationPage(page);
     await registerpage.fillDetails(userData);
-    console.log(`Successfully filled UserDetails:: \n ${userData}`);
+    console.log(`Successfully filled UserDetails:: \n ${JSON.stringify(userData, null, 2)}`);
 
     await page.waitForTimeout(3000);
 
@@ -163,9 +163,7 @@ test('Complete full user flow from register to transaction validation', async ({
 
     await transferFundsPage.transferAmountFromAccount1ToAccount2(amount, account1, account2);
 
-    const successTitle = await page.locator('div#showResult > h1.title').textContent();
-    await expect(successTitle).toContain('Transfer Complete');
-    console.log('Transfer successful!');
+    
 
     const errorLocator = page.locator('div#showError > h1.title');
     const isErrorVisible = await errorLocator.isVisible();
@@ -175,6 +173,12 @@ test('Complete full user flow from register to transaction validation', async ({
       const errorText = await errorLocator.textContent();
       await expect(errorText).toContain('Error!');  // Validate the error message
       throw new Error('Transfer failed due to error');
+    }
+    else{
+      const successTitle = await page.locator('div#showResult > h1.title').textContent();
+      await expect(successTitle).toContain('Transfer Complete');
+      console.log('Transfer successful!');
+
     }
 
     console.log(`Transfer of ${amount} from account ${account1} to account ${account2} completed successfully.`);
@@ -211,9 +215,7 @@ test('Complete full user flow from register to transaction validation', async ({
       await findTransactionsPage.validateTransaction(validDate, creditedAccount, amount, 'credit');
     }
 
-    const resultsTitle = await page.locator('div#resultContainer > h1.title').textContent();
-    await expect(resultsTitle).toContain('Transaction Results');  // Validate that transaction results are displayed
-    console.log('Transaction results displayed successfully.');
+
 
     const errorLocator = page.locator('div#errorContainer > h1.title');
     const isErrorVisible = await errorLocator.isVisible();
@@ -223,6 +225,11 @@ test('Complete full user flow from register to transaction validation', async ({
       const errorText = await errorLocator.textContent();
       await expect(errorText).toContain('Error!');  // Validate the error message
       throw new Error('Transaction search failed due to error');
+    }
+    {
+      const resultsTitle = await page.locator('div#resultContainer > h1.title').textContent();
+      await expect(resultsTitle).toContain('Transaction Results');  // Validate that transaction results are displayed
+      console.log('Transaction results displayed successfully.');
     }
 
     console.log(`Transaction results validated successfully for ${debitedAccount} account.`);
