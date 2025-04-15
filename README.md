@@ -105,7 +105,7 @@ The tests are located in the `/tests` directory, and each test is written in the
 
 ### **Sample Test Command**:
 
-Here's an example of running the tests in **headless mode**:
+Here's an example of running the tests in **headed mode**:
 
 ```bash
 npx playwright test tests/test01.spec.js --headed
